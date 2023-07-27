@@ -2,7 +2,6 @@ const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not-found-error');
 const PermissionError = require('../errors/permission-error');
 
-
 // Получить все фильмы
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
