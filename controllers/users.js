@@ -6,7 +6,6 @@ require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-
 // Получить данные авторизованного пользователя
 module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
