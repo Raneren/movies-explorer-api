@@ -7,4 +7,4 @@
 
 IP 84.201.156.101
 
-Backend https://api.malinavichus.movies.nomoredomains.co
+Backend http://api.movies.malinavichus.nomoreparties.co
