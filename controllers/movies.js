@@ -4,8 +4,8 @@ const PermissionError = require('../errors/permission-error');
 
 // Получить все фильмы
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
-    .populate('owner')
+  const owner = req.user._id;
+  Movie.find({ owner })
     .then((movies) => res.send(movies))
     .catch(next);
 };

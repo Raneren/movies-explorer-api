@@ -1,8 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
 const { createUser, login } = require('./controllers/users');
+const { validateCreateUser, validateLogin } = require('./middlewares/validator');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -24,19 +25,8 @@ mongoose.connect(`${MONGO_URL}/moviesdb`);
 
 app.use(requestLogger); // подключаем логгер запросов
 
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), createUser);
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), login);
+app.post('/signup', validateCreateUser, createUser);
+app.post('/signin', validateLogin, login);
 
 app.use(auth);
 
